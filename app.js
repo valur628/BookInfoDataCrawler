@@ -1,29 +1,24 @@
-// 필요한 모듈들을 불러옵니다.
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
 const XLSX = require('xlsx');
 const iconv = require('iconv-lite');
-const config = require('./config/download_config.json');
+const configList = require('./config/download_config.json');
 
-async function downloadExcelAndEdit() {
+async function downloadExcelAndEdit(config) {
     let file_extension = 'csv';
 
     let download_url = config.download_url;
     let exit_text = config.exit_text;
-    let file_name = exit_text + "~1";
+    let file_name = exit_text + "~" + Date.now();
     let download_path = './export/';
 
-    // 엑셀 파일 다운로드 시간을 측정하기 위해 타이머를 시작합니다.
-    console.time('Download Excel');
     // Axios를 이용해서 엑셀 파일을 다운로드 받습니다.
     let response = await axios({
         url: download_url,
         method: 'GET',
         responseType: 'arraybuffer' 
     });
-    // 다운로드 시간 측정을 마칩니다.
-    console.timeEnd('Download Excel');
 
     // 받아온 엑셀 파일의 인코딩을 iconv-lite를 이용해서 'euc-kr'에서 'utf-8'로 변환합니다.
     let decodedData = iconv.decode(Buffer.from(response.data), 'euc-kr');
@@ -35,16 +30,12 @@ async function downloadExcelAndEdit() {
     let sheetName = workbook.SheetNames[0]; 
     let worksheet = workbook.Sheets[sheetName]; 
 
-    // 엑셀 편집 시간을 측정하기 위해 타이머를 시작합니다.
-    console.time('Edit Excel');
     // K열의 내용을 수정합니다.
-    let lastRow = XLSX.utils.decode_range(worksheet['!ref']).e.r + 1
+    let lastRow = XLSX.utils.decode_range(worksheet['!ref']).e.r + 1;
     for (let i = 2; i <= lastRow; i++) {
         let cell = 'K' + i;
         worksheet[cell].v = exit_text;
     }
-    // 편집 시간 측정을 마칩니다.
-    console.timeEnd('Edit Excel');
 
     // 수정된 데이터를 다시 엑셀 파일로 변환합니다.
     let newExcelData = XLSX.write(workbook, { type: 'buffer', bookType: file_extension });
@@ -60,8 +51,10 @@ async function downloadExcelAndEdit() {
     fs.writeFileSync(dest, newExcelData);
 
     // 완료 메시지를 출력합니다.
-    console.log('엑셀 파일 수정 및 다운로드 완료');
+    console.log(`'${file_name}' 파일이 저장되었습니다.`);
 }
 
 // 함수를 실행합니다. 에러가 발생하면 콘솔에 출력합니다.
-downloadExcelAndEdit().catch(console.error);
+configList.forEach(config => {
+    downloadExcelAndEdit(config).catch(console.error);
+});
