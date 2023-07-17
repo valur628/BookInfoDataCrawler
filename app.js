@@ -9,13 +9,13 @@ let chain = Promise.resolve();
 // 각 설정 파일마다 다운로드 및 편집 함수를 실행합니다.
 // forEach 대신으로 map을 사용하지 않았습니다.
 // 때문에, 배열의 각 요소에 대해 새 Promise가 chain에 추가되는 대신 이전 Promise의 결과에 따라 추가됩니다.
-configList.forEach((config, index) => {
+configList.forEach((downloadConfig, index) => {
   chain = chain
     // 각 요청 이후 5초를 기다립니다.
     // setTimeout에 의해 반환된 Promise가 resolve되는 콜백 함수는 인자로 전달됩니다.
     // 그리고 이 콜백 함수가 실행될 때까지 기다립니다.
     .then(() => new Promise(resolve => setTimeout(resolve, Math.floor(Math.random() * 1500) + 500)))
-    .then(() => downloadExcelAndEdit(config, index));
+    .then(() => downloadExcelAndEdit(downloadConfig, index));
 
     // setTimeout(resolve, 시간 정수)
     // 시간 정수에 1000은 1초를 뜻하는 딜레이 시간입니다.

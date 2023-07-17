@@ -3,15 +3,15 @@ const fs = require('fs');
 const path = require('path');
 const downloadData = require('../services/downloadService');
 const editExcel = require('../services/editExcelService');
-
+const config = require('../../config/config.js');
 let allExcelData = []; // 이 변수에는 모든 수정된 엑셀 데이터의 array buffer가 저장됩니다.
 
 // 비동기 함수 downloadExcelAndEdit는 주어진 설정에 따라 엑셀 파일을 다운로드하고 편집합니다.
-async function downloadExcelAndEdit(config, index) {
+async function downloadExcelAndEdit(downloadConfig, index) {
     let file_extension = 'csv';
     
-    let download_url = config.download_url;  // json 객체에서 다운로드 URL을 분리합니다.
-    let exit_text = config.exit_text;  // json 객체에서 수정할 데이터를 분리합니다.
+    let download_url = config.urlFront + downloadConfig.download_url + config.urlBehind;  // json 객체에서 다운로드 URL을 분리합니다.
+    let exit_text = downloadConfig.exit_text;  // json 객체에서 수정할 데이터를 분리합니다.
     let file_name = exit_text + "~" + Date.now();  // 파일명은 "수정할 데이터~현재 시간"으로 설정합니다.
     let download_path = './export/';  // 파일이 저장될 디렉터리를 설정합니다.
 
