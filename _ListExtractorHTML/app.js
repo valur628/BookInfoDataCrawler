@@ -38,7 +38,7 @@ fs.readFile('input.txt', (err, data) => {
     }
   });
   // 최종 결과를 'output.json' 파일로 저장
-  fs.writeFile('output.json', JSON.stringify(output,null,4), (err) => {
+  fs.writeFile('download_config.json', JSON.stringify(output,null,4), (err) => {
     if(err) throw err;  // 오류 던지기
     console.log("파일이 저장되었습니다.");  // 성공 메시지 출력
   });
