@@ -3,7 +3,7 @@ const fs = require('fs');
 
 // 파일 읽기
 // UTF-8 파일이어야 함.
-fs.readFile('import.txt', (err, data) => {
+fs.readFile('input.txt', (err, data) => {
   if(err) throw err;  // 에러 던지기
   let output = [];  // 출력 배열 초기화
   const $ = cheerio.load(data);  // 체리오로 데이터 로드
