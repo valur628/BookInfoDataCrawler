@@ -5,17 +5,21 @@ function editExcel(decodedData, exit_text, includeHeader) {
     let workbook = XLSX.read(decodedData, {type: 'string'});
     let sheetName = workbook.SheetNames[0];
     let worksheet = workbook.Sheets[sheetName];
-    let lastRow = XLSX.utils.decode_range(worksheet['!ref']).e.r+1;
+    let lastRow = XLSX.utils.decode_range(worksheet['!ref']).e.r + 1;
 
     for(let i = 2; i <= lastRow; i++) {
         let cell = 'K' + i;
         worksheet[cell].v = exit_text;
     }
-
+    
     if (!includeHeader) {
         let newRange = XLSX.utils.decode_range(worksheet['!ref']);
         if(newRange.e.r > 0){
-            newRange.s.r = 1;
+            /*if (worksheet['A1'].v === '순위' || worksheet['A1'].v.trim() === '') {
+                newRange.s.r = 1; 
+            } else {
+                newRange.s.r = 0; 
+            }*/
             worksheet['!ref'] = XLSX.utils.encode_range(newRange);
         }
     }

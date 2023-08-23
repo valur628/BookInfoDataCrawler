@@ -6,6 +6,10 @@ const config = require('../../config/config.js');
 
 let allExcelData = {}; 
 
+// 기준 시간 설정
+const now = new Date();
+const datetime = `${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()}_${now.getHours()}=${now.getMinutes()}=${now.getSeconds()}`;
+
 async function downloadExcelAndEdit(downloadConfig, index) {
     let file_extension = 'csv';
 
@@ -26,7 +30,7 @@ async function downloadExcelAndEdit(downloadConfig, index) {
 }
 
 async function writeAllDataToFile() {
-    let download_path = './export/';
+    let download_path = `./export/${datetime}`; 
 
     if (!fs.existsSync(download_path)) {
         fs.mkdirSync(download_path, {recursive: true});
