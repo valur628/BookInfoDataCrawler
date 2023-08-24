@@ -37,7 +37,7 @@ async function writeAllDataToFile() {
     }
 
     Object.keys(allExcelData).forEach(function(exit_text_prefix) {
-        let file_name = exit_text_prefix + "~" + Date.now(); 
+        let file_name = exit_text_prefix; 
         let dest = path.join(download_path, file_name + '.' + 'csv');
         fs.writeFileSync(dest, allExcelData[exit_text_prefix]); 
 
