@@ -23,7 +23,7 @@
 | ------ | ------ |
 | 사용 언어 | JavaScript |
 | 개발 도구 | Visual Studio Code |
-| 데이터베이스 | JavaScript Object Notation (JSON) |
+| 데이터베이스 | JavaScript Object Notation (JSON), Comma-Separated Values (CSV) |
 | OS 환경 | Windows 10 |
 
 ### 포크 & 모듈 & 리포지토리
