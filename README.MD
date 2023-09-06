@@ -26,9 +26,17 @@
 | 데이터베이스 | JavaScript Object Notation (JSON) |
 | OS 환경 | Windows 10 |
 
+### 포크 & 모듈 & 리포지토리
+본 프로젝트의 포크 혹은 분리되어 개발된 모듈 혹은 관련된 추가 리포지토리 목록입니다.
+- [BookRecommendationHelper Repository] - 사용자에게 책을 추천해주는 Flask 프로젝트 Repository입니다.
+- [BookInfoDataCrawler Repository] - 책 데이터를 크롤링 및 1차적으로 가공해서 큰 데이터베이스로 만들어주는 node.js Repository입니다. (현 Repository)
+
 ***
 
    [node.js]: <https://nodejs.org/>
    [axios]: <https://axios-http.com/>
    [SheetJS]: <https://cdn.sheetjs.com/>
    [iconv-lite]: <https://github.com/ashtuchkin/iconv-lite>
+
+   [BookRecommendationHelper Repository]: <https://github.com/valur628/BookRecommendationHelper>
+   [BookInfoDataCrawler Repository]: <https://github.com/valur628/BookInfoDataCrawler>
